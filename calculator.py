@@ -37,7 +37,10 @@ def calculator():
     elif operation == '/':
         # რიცხვის შემოწმება 0-ზე გაყოფისთვის
         if num2 != 0:
-            result = num1 / num2
+            if num1 % num2 == 0:
+                result = int(num1 / num2)
+            else:
+                result = num1 / num2
         else:
             print("Error: Division by zero!")
             return 
