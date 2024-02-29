@@ -10,9 +10,9 @@ def calculator():
     def validate_input(num):
         while True:
             try:
-                value = float(input(num))
+                value = eval(input(num))
                 return value
-            except ValueError:
+            except (ValueError, SyntaxError):
                 print("Invalid input. Please enter a number.")
 
     # პირველი რიცხვის შეყვანა
