@@ -17,7 +17,7 @@ class ATM:
                 pin = parts[0].split(":")[1]
                 amount = float(parts[1].split(":")[1])
                 username = " ".join(parts[2:]).split(":")[1]
-                # ინახავს ანგარიშების ინფორმაციას ლექსიკონში
+                 # ინახავს ანგარიშების ინფორმაციას ლექსიკონში
                 accounts[pin] = {'balance': amount, 'username': username}
         return accounts
 
@@ -29,22 +29,18 @@ class ATM:
 
     def create_accounts_file(self):
         # ტექსტური ფაილის შექმნა
+
         with open('accounts.txt', 'w') as file:
             # ქმნის კონკრეტული მომხმარებლების ანგარიშებს
-            file.write("pin:1234 amount:1250.0 user:Davit Elbakidze\n")  # Example default account
-            file.write("pin:5678 amount:1500.0 user:Step Academy\n") # Example default account
+            file.write("pin:1234 amount:1250.0 user:Davit Elbakidze\n")
+            file.write("pin:5678 amount:1500.0 user:Step Academy\n")
 
     def check_balance(self, pin):
         # აბრუნებს ბალანსს
         return self.accounts[pin]['balance']
 
-    def deposit(self, pin, amount):
-        # თანხის ანგარიშზე შეტანის ფუნქცია
-        self.accounts[pin]['balance'] += amount
-        self.save_accounts()
-
     def withdraw(self, pin, amount):
-        # ანგარიშიდან თანხის გამოტანის ფუნქცია
+       # ანგარიშიდან თანხის გამოტანის ფუნქცია
         if self.accounts[pin]['balance'] >= amount:
             self.accounts[pin]['balance'] -= amount
             self.save_accounts()
@@ -57,34 +53,23 @@ atm = ATM()
 def main():
     while True:
         print("1. Check Balance")
-        print("2. Deposit")
-        print("3. Withdraw")
-        print("4. Exit")
+        print("2. Withdraw")
+        print("3. Exit")
 
         operation = input("Enter your operation: ")
 
+        # ბალანსის შემოწმების ფუნქციის გამოძახება
         if operation == "1":
             pin = input("Enter PIN: ")
-            # ბალანსის შემოწმების ფუნქციის გამოძახება
             if pin in atm.accounts:
                 balance = atm.check_balance(pin)
                 print(f"Your balance is: ${balance}")
             else:
                 print("Invalid PIN.")
-        
+
+        # თანხის გატანის ფუნქციის გამოძახება
         elif operation == "2":
             pin = input("Enter PIN: ")
-            # თანხის შეტანის ფუნქციის გამოძახება
-            if pin in atm.accounts:
-                amount = float(input("Enter deposit amount: "))
-                atm.deposit(pin, amount)
-                print("Deposit successful.")
-            else:
-                print("Invalid PIN.")
-
-        elif operation == "3":
-            pin = input("Enter PIN: ")
-            # თანხის გატანის ფუნქციის გამოძახება
             if pin in atm.accounts:
                 amount = float(input("Enter withdrawal amount: "))
                 if atm.withdraw(pin, amount):
@@ -93,8 +78,8 @@ def main():
                     print("Insufficient funds.")
             else:
                 print("Invalid PIN.")
-        
-        elif operation == "4":
+
+        elif operation == "3":
             print("Thank you for using the ATM. Goodbye!")
             break
 
@@ -103,6 +88,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
