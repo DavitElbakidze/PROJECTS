@@ -38,6 +38,12 @@ class ATM:
     def check_balance(self, pin):
         # აბრუნებს ბალანსს
         return self.accounts[pin]['balance']
+    
+
+    def deposit(self, pin, amount):
+        # თანხის ანგარიშზე შეტანის ფუნქცია
+        self.accounts[pin]['balance'] += amount
+        self.save_accounts()
 
     def withdraw(self, pin, amount):
        # ანგარიშიდან თანხის გამოტანის ფუნქცია
@@ -53,8 +59,9 @@ atm = ATM()
 def main():
     while True:
         print("1. Check Balance")
-        print("2. Withdraw")
-        print("3. Exit")
+        print("2. Deposit")
+        print("3. Withdraw")
+        print("4. Exit")
 
         operation = input("Enter your operation: ")
 
@@ -67,8 +74,19 @@ def main():
             else:
                 print("Invalid PIN.")
 
-        # თანხის გატანის ფუნქციის გამოძახება
+
         elif operation == "2":
+            pin = input("Enter PIN: ")
+            # თანხის შეტანის ფუნქციის გამოძახება
+            if pin in atm.accounts:
+                amount = float(input("Enter deposit amount: "))
+                atm.deposit(pin, amount)
+                print("Deposit successful.")
+            else:
+                print("Invalid PIN.")
+
+        # თანხის გატანის ფუნქციის გამოძახება
+        elif operation == "3":
             pin = input("Enter PIN: ")
             if pin in atm.accounts:
                 amount = float(input("Enter withdrawal amount: "))
@@ -79,7 +97,7 @@ def main():
             else:
                 print("Invalid PIN.")
 
-        elif operation == "3":
+        elif operation == "4":
             print("Thank you for using the ATM. Goodbye!")
             break
 
